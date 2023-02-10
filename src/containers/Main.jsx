@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { StyleSheet, View, Text } from "react-native"
 
 
@@ -7,31 +7,43 @@ const Main = () => {
         {
             date: "01/01/01",
             amount: 30,
-            type: "expense",
+            type: "Expense",
         },
         {
             date: "01/01/02",
             amount: 50,
-            type: "income",
+            type: "Income",
         }
     ])
 
     const [runningTotal, setRunningTotal] = useState(0)
     const [target, setTarget] = useState(0)
+
+    const getRunningTotal = () => {
+        var runningTotal = 0
+        for (data of sampleData) {
+            runningTotal += data.amount
+        }
+        setRunningTotal(runningTotal)
+    }
+
+    useEffect(() => {
+        getRunningTotal()
+    })
     return (
         <View style={styles.mainContainer}>
             <View style={styles.mainItems}>
-                <Text style={styles.itemDate}>Date</Text>
-                <Text style={styles.itemAmount}>Amount</Text>
-                <Text style={styles.itemType}>Type</Text>
-                <Text style={styles.itemRunningTotal}>Running Total</Text>
-                <Text style={styles.itemTarget}>Target</Text>
+                <Text style={[styles.itemDate, styles.itemTitle]}>Date</Text>
+                <Text style={[styles.itemAmount, styles.itemTitle]}>Amount</Text>
+                <Text style={[styles.itemType, styles.itemTitle]}>Type</Text>
+                <Text style={[styles.itemRunningTotal, styles.itemTitle]}>Running Total</Text>
+                <Text style={[styles.itemTarget, styles.itemTitle]}>Target</Text>
             </View>
             {sampleData.map(data => 
                     <View style={styles.mainItems}>
                         <Text style={styles.itemDate}>{data.date}</Text>
                         <Text style={styles.itemAmount}>{data.amount}</Text>
-                        <Text style={styles.itemType}>{data.type === "income" ? "income": "expense"}</Text>
+                        <Text style={styles.itemType}>{data.type === "Income" ? "Income": "Expense"}</Text>
                         <Text style={styles.itemRunningTotal}>{runningTotal}</Text>
                         <Text style={styles.itemTarget}>{target}</Text>
                     </View>
@@ -57,33 +69,33 @@ const styles = StyleSheet.create({
         fontFamily: "SpaceMono-Regular",
     },
     itemDate: {
-        fontFamily: "SpaceMono-Regular",
+        fontFamily: "Ubuntu-Regular",
         borderWidth: 1,
         width: "20%",
         textAlign: "center",
     },
     itemAmount: {
-        fontFamily: "SpaceMono-Regular",
+        fontFamily: "Ubuntu-Regular",
         borderWidth: 1,
         width: "15%",
         textAlign: "center",
     },
     itemType: {
-        fontFamily: "SpaceMono-Regular",
+        fontFamily: "Ubuntu-Regular",
         borderWidth: 1,
-        width: "20%",
+        width: "15%",
         textAlign: "center",
     },
     itemRunningTotal: {
-        fontFamily: "SpaceMono-Regular",
+        fontFamily: "Ubuntu-Regular",
         borderWidth: 1,
         width: "30%",
         textAlign: "center",
     },
     itemTarget: {
-        fontFamily: "SpaceMono-Regular",
+        fontFamily: "Ubuntu-Regular",
         borderWidth: 1,
-        width: "15%",
+        width: "20%",
         textAlign: "center",
     }
 
