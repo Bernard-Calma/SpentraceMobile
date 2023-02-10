@@ -1,9 +1,10 @@
 import { Text, View } from "react-native"
+import Header from "./src/containers/Header"
 
 const App = () => {
     return(
         <View>
-            <Text>Hello World!</Text>
+            <Header />
         </View>
     )
 }
